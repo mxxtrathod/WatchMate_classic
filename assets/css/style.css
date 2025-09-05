@@ -1,0 +1,395 @@
+body {
+  overflow-x: hidden;
+}
+
+.header-icon {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.header-icon i {
+  font-size: 20px;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-input-group {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fdfdfd;
+}
+
+#footer_color {
+  background-color: black;
+}
+
+.model-img {
+  height: 100%;
+  max-height: 450px;
+}
+
+.card-img-top {
+  height: 220px;
+  object-fit: contain;
+  padding: 10px;
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-10px);
+  box-shadow: 1 10px 25px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.bg-light-subtle {
+  background-color: #fefaf5;
+  /* very light cream background */
+}
+
+.btn-warning {
+  background-color: #f19318;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #f7aa3e;
+}
+
+a {
+  text-decoration: none;
+}
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Initial state: hidden and shifted to the right */
+.scroll-slide-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* When in view: fully visible and original position */
+.scroll-slide-right.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Account Dropdown Hover Effect */
+.account-dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 5px;
+  /* Fix position jump */
+}
+
+.account-popup {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Centers the popup */
+  min-width: 220px;
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+}
+
+.header-icon:hover .account-popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bi-person,
+.account {
+  cursor: pointer;
+}
+
+.header-icon {
+  position: relative;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+
+.header-icon-user {
+  /* position: relative; */
+  /* text-align: center; */
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  margin-left: -15px;
+}
+
+/* Underline effect on hover (left to right) */
+.header-icon::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #161616;
+  /* Orange underline */
+  transition: all 0.3s ease-in-out;
+}
+
+.header-icon:hover::after {
+  width: 100%;
+}
+
+.btn-warning {
+  background-color: #f09e41;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #da832c;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.form-control:focus,
+.input-group-text:focus {
+  box-shadow: none !important;
+  /* Removes the glow effect */
+  outline: none !important;
+  /* Removes the outline */
+  border-color: #ced4da;
+  /* Keeps border color consistent */
+}
+
+/* Hide placeholder on focus */
+.form-control:focus::placeholder {
+  color: transparent;
+}
+
+.create_account {
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .col-1-5 {
+    flex: 0 0 auto;
+    width: 20%;
+  }
+}
+
+.product-card {
+  transition: box-shadow 0.3s ease;
+  border: none;
+  /* overflow: hidden; */
+}
+
+.product-card img {
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.product-card img:hover {
+  transform: scale(1.08);
+}
+
+.product-card:hover {
+  box-shadow: 3px 3px 15px rgba(31, 31, 31, 0.2);
+  cursor: pointer;
+}
+
+.hover-zoom {
+  transition: transform 0.4s ease;
+}
+
+.hover-zoom:hover {
+  transform: scale(1.004);
+  overflow: hidden !important;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.sidebar {
+  height: 100vh;
+  width: 180px;
+  position: fixed;
+  background-color: #111213;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.sidebar .nav-link {
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sidebar .nav-link:hover {
+  background-color: white;
+  color: #343a40;
+}
+
+.sidebar .submenu {
+  display: none;
+  padding-left: 1rem;
+}
+
+.sidebar .submenu a {
+  color: #ddd;
+  text-decoration: none;
+  display: block;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+
+.sidebar .submenu a:hover {
+  background-color: white;
+  color: #343a40;
+}
+
+.main-content {
+  margin-left: 180px;
+  padding: 2rem;
+}
+
+.custom-tabs .nav-link {
+  border-radius: 50px;
+  padding: 6px 18px;
+  font-weight: 500;
+  color: #555;
+  background-color: #f1f1f1;
+  margin-right: 5px;
+  transition: all 0.3s ease;
+}
+
+.custom-tabs .nav-link:hover {
+  background-color: #ffcc80;
+  color: #000;
+}
+
+.custom-tabs .nav-link.active {
+  background-color: #ff9800;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar .admin_dashboard a {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.sidebar .admin_dashboard a:hover {
+  color: black !important;
+}
+
+.dashboard-card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+  text-align: center;
+  padding: 20px;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+.icon-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  font-size: 30px;
+  color: white;
+}
+
+.watch-icon {
+  background: #0d6efd;
+}
+
+/* Blue */
+.user-icon {
+  background: #198754;
+}
+
+/* Green */
+.order-icon {
+  background: #fd7e14;
+}
+
+/* Orange */
+.report-icon {
+  background: #6f42c1;
+}
+
+.product-image {
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+  opacity: 1;
+}
+
+#mainImage{
+  /* width: 600px !important; */
+  height: 400px;
+  object-fit: contain;
+  /* overflow: hidden; */
+}
