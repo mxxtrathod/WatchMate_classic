@@ -33,10 +33,9 @@ session_start();
                             <i class="bi bi-search"></i>
                         </span>
                         <input type="text" class="form-control border-0" placeholder="Search watches" style="box-shadow: none;">
-
                     </div>
                 </div>
-                
+
 
                 <div class="col-md-4 col-3 text-end d-flex justify-content-center gap-5">
                     <!-- Account Dropdown -->
@@ -57,7 +56,9 @@ session_start();
                                 <button class="btn btn-warning text-uppercase w-100" data-bs-toggle="modal" data-bs-target="#loginModal">
                                     Login/Signup
                                 </button>
+
                             </div>
+
                             <!-- <div class="mt-3">
                                 <button class="btn btn-warning text-uppercase w-100" data-bs-toggle="modal" data-bs-target="#adminloginModal">
                                     <i class="bi bi-person-fill me-2 text-center"></i>Admin
