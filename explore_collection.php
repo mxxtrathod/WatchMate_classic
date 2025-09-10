@@ -23,7 +23,7 @@ $result = $conn->query($sql);
                                 <h6 class="fw-bold mb-1"><?php echo htmlspecialchars($row['title']); ?></h6>
                                 <p class="text-muted text-truncate small mb-2" style="max-width: 240px;"><?php echo htmlspecialchars($row['description']); ?></p>
                                 <p class="text-dark fw-bold">$<?php echo htmlspecialchars($row['price']); ?></p>
-                                <a href="cart.php" class="btn btn-outline-dark btn-sm w-100 rounded-pill fw-semibold py-2 mb-2">
+                                <a href="cart.php?action=add&id=<?php echo $row['id']; ?>" class="btn btn-outline-dark btn-sm w-100 rounded-pill fw-semibold py-2 mb-2">
                                     <i class="bi bi-cart-plus me-1"></i> Add to Cart
                                 </a>
                             </div>

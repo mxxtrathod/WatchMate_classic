@@ -393,3 +393,197 @@ body {
   object-fit: contain;
   /* overflow: hidden; */
 }
+
+/* ==========================
+   Responsive enhancements
+   ========================== */
+
+/* Make generic images fluid by default (respect component-specific heights) */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent horizontal overflow in flex gaps on very narrow screens */
+header .d-flex.gap-5 {
+  gap: 1rem !important;
+}
+
+/* Constrain header logo on small screens without changing markup */
+header img {
+  max-height: 70px;
+  height: auto;
+  width: auto;
+}
+
+/* Account popup should fit in viewport on mobile */
+.account-popup {
+  max-width: 90vw;
+}
+
+/* Breakpoints */
+@media (max-width: 1200px) {
+  .product-image {
+    max-height: 340px;
+  }
+}
+
+@media (max-width: 992px) {
+  /* Reduce card image height to avoid tall cards */
+  .card-img-top {
+    height: 190px;
+  }
+
+  /* Slightly reduce header icon sizing */
+  .header-icon {
+    font-size: 14px;
+  }
+  .header-icon i {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Sidebar stacks above content on tablets/phones */
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  /* Product image and thumbnails scale down */
+  .product-image {
+    max-height: 300px;
+  }
+  .thumbnail {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Header spacing tighter on mobile */
+  header .container-fluid {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Search input group full width where used */
+  .search-input-group {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Smaller header logo and icons on very small phones */
+  header img {
+    max-height: 56px;
+  }
+  .header-icon {
+    font-size: 13px;
+  }
+  .header-icon i {
+    font-size: 16px;
+  }
+
+  /* Ensure header controls don't overflow width */
+  header .d-flex.gap-5 {
+    gap: 0.5rem !important;
+  }
+
+  /* Card image height smaller to fit more content */
+  .card-img-top {
+    height: 160px;
+  }
+
+  /* Main product image smaller */
+  #mainImage {
+    height: 260px;
+  }
+
+  /* Footer container padding adjustments when class present */
+  .footer-no-padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+
+
+
+    .cart-wrapper {
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      padding: 40px 0;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+    }
+
+    .product-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .summary-card {
+      background: white;
+      border-radius: 12px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .checkout-btn {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      border: none;
+      transition: transform 0.2s;
+    }
+
+    .checkout-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #4f46e5, #4338ca);
+    }
+
+    .remove-btn {
+      color: #dc2626;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .remove-btn:hover {
+      color: #991b1b;
+    }
+
+    .quantity-btn {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: #f3f4f6;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .quantity-btn:hover {
+      background: #e5e7eb;
+    }
