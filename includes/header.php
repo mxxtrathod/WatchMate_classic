@@ -19,7 +19,7 @@ session_start();
 <body>
     <header class="bg-white shadow-sm sticky-top">
         <!-- Header -->
-        <div class="container-fluid py-0 border-bottom mb-1">
+        <div class="container-fluid py-3 border-bottom mb-1">
             <div class="row align-items-center">
 
                 <!-- Logo -->
@@ -41,7 +41,19 @@ session_start();
                 <div class="col-md-4 col-3 text-end d-flex justify-content-center gap-5">
                     <!-- Account Dropdown -->
 
-                    <a href="cart.php" class="text-decoration-none text-dark">
+                    <a href="index.php" class="text-decoration-none text-dark me-3">
+                        <div class="header-icon text-center">
+                            <i class="bi bi-house"></i><br>Home
+                        </div>
+                    </a>
+
+                    <a href="explore_collection.php" class="text-decoration-none text-dark me-3">
+                        <div class="header-icon text-center">
+                            <i class="bi bi-box-seam"></i><br>Products
+                        </div>
+                    </a>
+
+                    <a href="cart.php" class="text-decoration-none text-dark me-3">
                         <div class="header-icon text-center">
                             <i class="bi bi-bag"></i><br>Cart
                         </div>

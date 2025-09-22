@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,9 +56,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 80px;">
             </div>
             <div class="d-flex gap-3 mt-5">
-                <button class="btn btn-outline-dark px-5 py-2">
-                    ADD TO CART
-                </button>
+    
+                <a href="cart.php?action=add&id=<?php echo $watch['id']; ?>" class="btn btn-outline-dark px-5 py-2">
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                </a>
+
                 <button class="btn px-5 py-2" style="background-color:#e89c34; color:#000; font-weight:500;">
                     BUY NOW
                 </button>
