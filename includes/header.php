@@ -9,7 +9,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WatchMate</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/images/logo/web_logo_tab.png">
@@ -54,29 +54,39 @@ session_start();
                     </a>
 
                     <a href="cart.php" class="text-decoration-none text-dark me-3">
-                        <div class="header-icon text-center">
-                            <i class="bi bi-bag"></i><br>Cart
+                        <div class="header-icon text-center position-relative">
+                            <i class="bi bi-bag"></i>
+                            <?php 
+                            $cartCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+                            if ($cartCount > 0): 
+                            ?>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
+                                    <?php echo $cartCount > 99 ? '99+' : $cartCount; ?>
+                                </span>
+                            <?php endif; ?>
+                            <br>Cart
                         </div>
                     </a>
 
                     <div class="header-icon position-relative">
-                        <i class="bi bi-person"></i><br>Account
+                        <i class="bi <?php echo isset($_SESSION['user_name']) ? 'bi-person-fill' : 'bi-person'; ?>"></i><br><?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'Account'; ?>
                         <div class="account-popup text-start mt-2">
-                            <h6 class="fw-bold">Welcome!</h6>
-                            <p class="small mb-3">Enjoy A Personalized Timekeeping Experience With WatchMate.</p>
-                            <hr>
-                            <div class="mt-3">
-                                <button class="btn btn-warning text-uppercase w-100" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                    Login/Signup
-                                </button>
-
-                            </div>
-
-                            <!-- <div class="mt-3">
-                                <button class="btn btn-warning text-uppercase w-100" data-bs-toggle="modal" data-bs-target="#adminloginModal">
-                                    <i class="bi bi-person-fill me-2 text-center"></i>Admin
-                                </button>
-                            </div> -->
+                            <?php if (isset($_SESSION['user_name'])): ?>
+                                <h6 class="fw-bold mb-1">Hello, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</h6>
+                                <p class="small mb-3">Glad to see you back.</p>
+                                <a href="logout.php" class="btn btn-outline-dark w-100">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Logout
+                                </a>
+                            <?php else: ?>
+                                <h6 class="fw-bold">Welcome!</h6>
+                                <p class="small mb-3">Enjoy A Personalized Timekeeping Experience With WatchMate.</p>
+                                <hr>
+                                <div class="mt-3">
+                                    <button class="btn btn-warning text-uppercase w-100" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        Login/Signup
+                                    </button>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -84,8 +94,3 @@ session_start();
             </div>
         </div>
     </header>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/script.js"></script>
-</body>
-
-</html>

@@ -12,6 +12,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../assets/images/logo/web_logo_tab.png">
 
+<style>
+    #orders a:hover {
+        /* box-shadow: none !important; */
+        background-color: none  !important;
+        color: black !important;
+    }
+</style>
+
 </head>
 
 <body>
@@ -41,15 +49,17 @@
                     <a href="../admin/admin_update.php"><i class="bi bi-pencil-square me-2"></i> Update</a>
                     <a href="../admin/admin_delete.php"><i class="bi bi-trash me-2"></i> Delete</a>
                 </div>
-
-                <div class="nav-link mt-2" onclick="toggleMenu('orderMenu')">
-                    <span><i class="bi bi-box-seam-fill me-2"></i> Orders</span>
-                    <i class="bi bi-caret-down-fill"></i>
-                </div>
-                <div id="orderMenu" class="submenu">
+ 
+                <div class="nav-link mt-2" id="orders">
+  <a href="../admin/orders.php" class="text-decoration-none text-white">
+    <i class="bi bi-box-seam-fill me-2"></i> Orders
+  </a>
+  <!-- <i class="bi bi-caret-down-fill"></i> -->
+</div>
+                <!-- <div id="orderMenu" class="submenu">
                     <a href="#"><i class="bi bi-clock me-2"></i> Pending</a>
                     <a href="#"><i class="bi bi-truck me-2"></i> Delivered</a>
-                </div>
+                </div> -->
             </div>
         </div>
 

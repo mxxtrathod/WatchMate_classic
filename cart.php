@@ -6,9 +6,16 @@ require('includes/db_connection.php');
 // Remove item from cart
 if (isset($_GET['action']) && $_GET['action'] === 'remove' && isset($_GET['id'])) {
   $watchId = (int)$_GET['id'];
-  if (($key = array_search($watchId, $_SESSION['cart'])) !== false) {
-    unset($_SESSION['cart'][$key]);
+  if (isset($_SESSION['cart'][$watchId])) {
+    unset($_SESSION['cart'][$watchId]);
   }
+  header("Location: cart.php");
+  exit;
+}
+
+// Clear entire cart
+if (isset($_GET['action']) && $_GET['action'] === 'clear_cart') {
+  $_SESSION['cart'] = [];
   header("Location: cart.php");
   exit;
 }
@@ -23,32 +30,35 @@ if (!isset($_SESSION['cart'])) {
 if (isset($_GET['action']) && $_GET['action'] === 'add' && isset($_GET['id'])) {
   $watchId = (int)$_GET['id'];
 
-  // Prevent duplicates
-  if (!in_array($watchId, $_SESSION['cart'])) {
-    $_SESSION['cart'][] = $watchId;
+  // Add or increase quantity
+  if (isset($_SESSION['cart'][$watchId])) {
+    $_SESSION['cart'][$watchId]++;
+  } else {
+    $_SESSION['cart'][$watchId] = 1;
   }
 
   header("Location: cart.php");
   exit;
 }
 
+
 // Fetch cart items from database
 $cartItems = [];
+$subtotal = 0;
 if (!empty($_SESSION['cart'])) {
-  $ids = implode(',', array_map('intval', $_SESSION['cart']));
+  $ids = implode(',', array_map('intval', array_keys($_SESSION['cart'])));
   $sql = "SELECT * FROM watches WHERE id IN ($ids)";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+      $row['quantity'] = $_SESSION['cart'][$row['id']];
+      $row['line_total'] = (float)$row['price'] * $row['quantity'];
+      $subtotal += $row['line_total'];
       $cartItems[] = $row;
     }
   }
 }
 ?>
-
-<body>
-
-
   <?php if (empty($cartItems)): ?>
     <div class="container text-center my-5">
       <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty Cart" class="mb-5 me-3 mt-5" style="width: 150px; height: auto;">
@@ -65,8 +75,23 @@ if (!empty($_SESSION['cart'])) {
           <div class="col-lg-8">
             <div class="d-flex justify-content-between align-items-center mb-4">
               <h4 class="mb-0"><i class="bi bi-bag"></i> Shopping Cart</h4>
-              <span class="text"><?php echo count($cartItems); ?> items</span>
+              <div class="d-flex align-items-center gap-3">
+                <span class="text" id="item-count"><?php echo array_sum($_SESSION['cart'] ?? []); ?> items</span>
+                <a href="cart.php?action=clear_cart" class="btn btn-sm btn-outline-danger" onclick="return confirm('Clear entire cart?')">
+                  <i class="bi bi-trash"></i> Clear Cart
+                </a>
+              </div>
             </div>
+            
+            <!-- Debug info (remove in production) -->
+            <?php if (isset($_GET['debug'])): ?>
+            <div class="alert alert-info mb-3">
+              <strong>Debug Info:</strong><br>
+              Session Cart: <?php echo json_encode($_SESSION['cart'] ?? []); ?><br>
+              Total Items: <?php echo array_sum($_SESSION['cart'] ?? []); ?><br>
+              Cart Items Count: <?php echo count($cartItems); ?>
+            </div>
+            <?php endif; ?>
 
             <!-- Product Cards -->
             <div class="d-flex flex-column gap-3">
@@ -83,13 +108,13 @@ if (!empty($_SESSION['cart'])) {
                     </div>
                     <div class="col-md-3">
                       <div class="d-flex align-items-center gap-2">
-                        <button class="quantity-btn" onclick="updateQuantity(1, -1)">-</button>
-                        <input type="number" class="quantity-input" value="1" min="1">
-                        <button class="quantity-btn" onclick="updateQuantity(1, 1)">+</button>
+                        <button class="quantity-btn" onclick="updateQuantity(<?php echo $item['id']; ?>, -1)">-</button>
+                        <input type="number" class="quantity-input" value="<?php echo $item['quantity']; ?>" min="1" data-watch-id="<?php echo $item['id']; ?>" data-price="<?php echo $item['price']; ?>">
+                        <button class="quantity-btn" onclick="updateQuantity(<?php echo $item['id']; ?>, 1)">+</button>
                       </div>
                     </div>
                     <div class="col-md-2">
-                      <span class="fw-bold">$<?php echo htmlspecialchars($item['price']); ?></span>
+                      <span class="fw-bold item-total" data-watch-id="<?php echo $item['id']; ?>">$<?php echo number_format($item['line_total'], 2); ?></span>
                     </div>
                     <div class="col-md-1">
                       <a href="cart.php?action=remove&id=<?php echo $item['id']; ?>">
@@ -110,7 +135,7 @@ if (!empty($_SESSION['cart'])) {
 
               <div class="d-flex justify-content-between mb-3">
                 <span class="text-muted">Subtotal</span>
-                <span>$<?php echo array_sum(array_column($cartItems, 'price')); ?></span>
+                <span id="subtotal">$<?php echo number_format($subtotal, 2); ?></span>
               </div>
               <div class="d-flex justify-content-between mb-3">
                 <span class="text-muted">Shipping</span>
@@ -119,16 +144,16 @@ if (!empty($_SESSION['cart'])) {
               <hr>
               <div class="d-flex justify-content-between mb-4">
                 <span class="fw-bold">Total</span>
-                <span class="fw-bold">$<?php echo array_sum(array_column($cartItems, 'price')) + 10; ?></span>
+                <span class="fw-bold" id="total">$<?php echo number_format($subtotal + 10, 2); ?></span>
               </div>
 
               <button class="btn btn-primary checkout-btn w-100 mb-3" onclick="checkLogin(event)">
-                Confirm Order
+                Proceed to checkout
               </button>
 
               <script>
                 function checkLogin(e) {
-                  <?php if (!isset($_SESSION['user_id'])): ?>
+                  <?php if (!isset($_SESSION['user_email'])): ?>
                     e.preventDefault(); // stop button action
                     alert("⚠️ You must be logged in to confirm your order!");
                     var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
@@ -257,15 +282,86 @@ if (!empty($_SESSION['cart'])) {
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    function updateQuantity(productId, change) {
-      const input = event.target.parentElement.querySelector('.quantity-input');
-      let value = parseInt(input.value) + change;
-      if (value >= 1) {
-        input.value = value;
+    function updateQuantity(watchId, change) {
+      const input = document.querySelector(`input[data-watch-id="${watchId}"]`);
+      let newQuantity = parseInt(input.value) + change;
+      
+      if (newQuantity >= 1) {
+        input.value = newQuantity;
+        updateCartQuantity(watchId, newQuantity);
       }
     }
+
+    function updateCartQuantity(watchId, quantity) {
+      const input = document.querySelector(`input[data-watch-id="${watchId}"]`);
+      const price = parseFloat(input.dataset.price);
+      
+      // Show loading state
+      const itemTotal = document.querySelector(`.item-total[data-watch-id="${watchId}"]`);
+      const originalText = itemTotal.textContent;
+      itemTotal.textContent = 'Updating...';
+      
+      // Send AJAX request to update quantity
+      fetch('update_cart.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=update_quantity&watch_id=${watchId}&quantity=${quantity}&price=${price}`
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.success) {
+          // Update item total
+          itemTotal.textContent = '$' + data.line_total;
+          
+          // Update summary
+          document.getElementById('subtotal').textContent = '$' + data.subtotal;
+          document.getElementById('total').textContent = '$' + data.total;
+          document.getElementById('item-count').textContent = data.item_count + ' items';
+          
+          console.log('Cart updated successfully');
+        } else {
+          throw new Error(data.error || 'Update failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error updating cart:', error);
+        // Restore original text on error
+        itemTotal.textContent = originalText;
+        alert('Failed to update cart. Please try again.');
+      });
+    }
+
+    // Handle direct input changes
+    document.addEventListener('DOMContentLoaded', function() {
+      const quantityInputs = document.querySelectorAll('.quantity-input');
+      quantityInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          const watchId = this.dataset.watchId;
+          const newQuantity = parseInt(this.value);
+          
+          if (newQuantity >= 1) {
+            updateCartQuantity(watchId, newQuantity);
+          } else {
+            this.value = 1; // Reset to minimum
+            updateCartQuantity(watchId, 1);
+          }
+        });
+        
+        // Prevent invalid input
+        input.addEventListener('input', function() {
+          if (this.value < 1) {
+            this.value = 1;
+          }
+        });
+      });
+    });
   </script>
 
-</body>
-
-</html>
+<?php require 'includes/footer.php'; ?>

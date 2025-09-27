@@ -58,16 +58,23 @@ if (!isset($_SESSION['admin_email'])) {
         // Query to count total users
         $sql_users = "SELECT COUNT(*) AS total_users FROM tbl_user";
         $result_users = $conn->query($sql_users);
-
         $total_users = 0;
         if ($result_users && $row_users = $result_users->fetch_assoc()) {
             $total_users = $row_users['total_users'];
+        }
+
+        // Query to count total Orders
+        $sql_orders = "SELECT COUNT(*) AS total_orders FROM orders";
+        $result_orders = $conn->query($sql_orders);
+
+        $total_orders = 0;
+        if ($result_orders && $row_orders = $result_orders->fetch_assoc()) {
+            $total_orders = $row_orders['total_orders'];
         }
         ?>
 
         <div class="container ">
             <div class="row g-4">
-
                 <!-- Watches Card -->
                 <div class="col-md-6">
                     <div class="card dashboard-card">
@@ -97,7 +104,7 @@ if (!isset($_SESSION['admin_email'])) {
                             <i class="bi bi-box-seam"></i>
                         </div>
                         <h5>Orders</h5>
-                        <p class="text-muted">Check and track customer orders</p>
+                        <h5 class="fw-medium"> <?php echo $total_orders; ?></h5>
                     </div>
                 </div>
 

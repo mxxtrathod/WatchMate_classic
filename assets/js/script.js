@@ -121,21 +121,24 @@ document.querySelectorAll(".product-card").forEach((card) => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("form"); // Your form element
+  // Only target the register form specifically
+  const registerForm = document.getElementById("registerForm");
   const emailInput = document.getElementById("email");
   const emailError = document.getElementById("emailError");
 
-  form.addEventListener("submit", function (e) {
-    const emailValue = emailInput.value.trim();
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+  if (registerForm && emailInput && emailError) {
+    registerForm.addEventListener("submit", function (e) {
+      const emailValue = emailInput.value.trim();
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
 
-    if (!emailPattern.test(emailValue)) {
-      e.preventDefault(); // stop form submission
-      emailError.style.display = "block";
-    } else {
-      emailError.style.display = "none";
-    }
-  });
+      if (!emailPattern.test(emailValue)) {
+        e.preventDefault(); // stop form submission
+        emailError.style.display = "block";
+      } else {
+        emailError.style.display = "none";
+      }
+    });
+  }
 });
 
 function toggleMenu(id) {
@@ -162,10 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-function togglePassword(id) {
-  const field = document.getElementById(id);
-  field.type = field.type === "password" ? "text" : "password";
-}
 
 document.addEventListener("DOMContentLoaded", function () {
   const userTab = document.getElementById("user-tab");
@@ -182,20 +181,33 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Global function for password toggle
 function togglePassword(inputId, iconSpan) {
-  let input = document.getElementById(inputId);
-  let icon = iconSpan.querySelector("i");
+  try {
+    let input = document.getElementById(inputId);
+    let icon = iconSpan.querySelector("i");
 
-  if (input.type === "password") {
-    input.type = "text";
-    icon.classList.remove("bi-eye-fill");
-    icon.classList.add("bi-eye-slash");
-  } else {
-    input.type = "password";
-    icon.classList.remove("bi-eye-slash");
-    icon.classList.add("bi-eye-fill");
+    if (!input || !icon) {
+      console.error("togglePassword: Input or icon not found", inputId);
+      return;
+    }
+
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("bi-eye-fill");
+      icon.classList.add("bi-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.remove("bi-eye-slash");
+      icon.classList.add("bi-eye-fill");
+    }
+  } catch (error) {
+    console.error("togglePassword error:", error);
   }
 }
+
+// Make sure the function is globally available
+window.togglePassword = togglePassword;
 
 function showInsertForm() {
   document.getElementById("insertFormContainer").style.display = "block";

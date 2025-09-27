@@ -14,6 +14,8 @@ if (mysqli_num_rows($result) > 0) {
   $row = mysqli_fetch_assoc($result);
 
   if (isset($row['password']) && $password === $row['password']) {
+    // Set common session fields
+    $_SESSION['user_email'] = $row['email'];
     $_SESSION['user_name'] = $row['name'];
 
     echo "
@@ -29,8 +31,8 @@ if (mysqli_num_rows($result) > 0) {
           timerProgressBar: true
         });
         setTimeout(function() {
-          window.location.href = 'user_index.php';
-        }, 1500);
+          window.location.href = 'index.php';
+        }, 1200);
       });
     </script>";
   } else {

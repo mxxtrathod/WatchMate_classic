@@ -2,6 +2,254 @@ body {
   overflow-x: hidden;
 }
 
+
+/* ===== RESPONSIVE DESIGN FOR INDEX PAGE ===== */
+
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
+  .carousel-item img {
+    height: 550px;
+    object-fit: cover;
+  }
+  
+  .model-img {
+    max-height: 500px;
+  }
+  
+  .container {
+    max-width: 1140px;
+  }
+  
+  .card-img-top {
+    height: 240px;
+  }
+}
+
+/* Desktop (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .carousel-item img {
+    height: 490px;
+    object-fit: cover;
+  }
+  
+  .model-img {
+    max-height: 450px;
+  }
+  
+  .card-img-top {
+    height: 220px;
+  }
+  
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* Tablet (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .carousel-item img {
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  .model-img {
+    max-height: 350px;
+    margin-bottom: 20px;
+  }
+  
+  .card-img-top {
+    height: 200px;
+  }
+  
+  .row-cols-md-3 > * {
+    flex: 0 0 auto;
+    width: 33.333333%;
+  }
+  
+  .container {
+    max-width: 720px;
+  }
+  
+  /* Classic trends section adjustments */
+  .col-md-6 .p-4 {
+    padding: 2rem !important;
+  }
+}
+
+/* Small Tablet (576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .carousel-item img {
+    height: 300px;
+    object-fit: cover;
+  }
+  
+  .model-img {
+    max-height: 280px;
+    margin-bottom: 15px;
+  }
+  
+  .card-img-top {
+    height: 180px;
+  }
+  
+  .row-cols-2 > * {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  
+  .container {
+    max-width: 540px;
+  }
+  
+  /* Text adjustments */
+  h2 {
+    font-size: 1.8rem;
+  }
+  
+  h4 {
+    font-size: 1.3rem;
+  }
+  
+  .col-md-6 .p-4 {
+    padding: 1.5rem !important;
+  }
+}
+
+/* Mobile (up to 575px) */
+@media (max-width: 575px) {
+  .carousel-item img {
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  .model-img {
+    max-height: 220px;
+    margin-bottom: 10px;
+  }
+  
+  .card-img-top {
+    height: 160px;
+  }
+  
+  .row-cols-2 > * {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  
+  /* Text adjustments for mobile */
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.1rem;
+  }
+  
+  .col-md-6 .p-4 {
+    padding: 1rem !important;
+  }
+  
+  /* Card text adjustments */
+  .card-title {
+    font-size: 0.9rem;
+  }
+  
+  .card-text {
+    font-size: 0.8rem;
+  }
+  
+  /* Button adjustments */
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Modal adjustments */
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+  
+  .modal-content {
+    border-radius: 0.5rem;
+  }
+}
+
+/* Extra Small Mobile (up to 375px) */
+@media (max-width: 375px) {
+  .carousel-item img {
+    height: 200px;
+  }
+  
+  .model-img {
+    max-height: 180px;
+  }
+  
+  .card-img-top {
+    height: 140px;
+  }
+  
+  .col-md-6 .p-4 {
+    padding: 0.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  h4 {
+    font-size: 1rem;
+  }
+  
+  .card-title {
+    font-size: 0.8rem;
+  }
+  
+  .card-text {
+    font-size: 0.75rem;
+  }
+}
+
+/* Responsive utilities */
+@media (max-width: 767px) {
+  .text-center-mobile {
+    text-align: center !important;
+  }
+  
+  .mb-mobile {
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Stack elements vertically on mobile */
+  .col-md-6 {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Ensure images are always responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive text truncation */
+@media (max-width: 575px) {
+  .text-truncate {
+    max-width: 150px !important;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .text-truncate {
+    max-width: 180px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .text-truncate {
+    max-width: 240px !important;
+  }
+}
+
 .header-icon {
   text-align: center;
   font-size: 14px;
@@ -268,7 +516,7 @@ body {
 
 .sidebar .nav-link:hover {
   background-color: white;
-  color: #343a40;
+  color: black;
 }
 
 .sidebar .submenu {
